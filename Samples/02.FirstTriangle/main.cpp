@@ -1,0 +1,57 @@
+#include "../../lib/OpenGLControl.h"
+#include "../../lib/Object.h"
+#include <iostream>
+using namespace std;
+using namespace sgl;
+
+int main(){
+	OpenGLControl sglControl;
+	sglControl.initOpenGL("02 - My First Triangle",1024,768,3,3);
+	GLuint VertexArrayID;
+	glGenVertexArrays(1, &VertexArrayID);
+	glBindVertexArray(VertexArrayID);
+
+	//triangle triangleVertices
+	vector<glm::vec3> triangleVertices;
+	
+	triangleVertices.push_back(glm::vec3(-0.1f,-0.1f,0.0f));
+	triangleVertices.push_back(glm::vec3(0.1f,-0.1f,0.0f));
+	triangleVertices.push_back(glm::vec3(0.0f,0.1f,0.0f));
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	
+	Object triangle(triangleVertices);
+	
+	//square vertex
+	vector<glm::vec3> squareVertices;
+
+	squareVertices.push_back(glm::vec3(-0.1f,-0.2f,0.0f));
+	squareVertices.push_back(glm::vec3(-0.1f,-0.4f,0.0f));
+	squareVertices.push_back(glm::vec3(0.1f,-0.4f,0.0f));
+	squareVertices.push_back(glm::vec3(-0.1f,-0.2f,0.0f));
+	squareVertices.push_back(glm::vec3(0.1f,-0.2f,0.0f));
+	squareVertices.push_back(glm::vec3(0.1f,-0.4f,0.0f));
+	
+	Object square(squareVertices);
+
+	//dot vertex
+	vector<glm::vec3> dotVertex;
+	dotVertex.push_back(glm::vec3(0.3f,0.3f,0.0f));
+	
+	Object dot(dotVertex);
+
+
+	do{
+		glClear(GL_COLOR_BUFFER_BIT); 
+		triangle.render(GL_TRIANGLES);
+		square.render(GL_TRIANGLES);
+		dot.render(GL_POINTS);
+	    	glfwSwapBuffers();
+	 
+	}
+	while( glfwGetKey( GLFW_KEY_ESC ) != GLFW_PRESS &&
+	glfwGetWindowParam( GLFW_OPENED ) );
+	glDeleteVertexArrays(1, &VertexArrayID);
+	glfwTerminate();
+	return 0;
+	
+}
