@@ -38,7 +38,7 @@ namespace sgl{
 			// vector that contain the position of each vertex of the object
 			std::vector<glm::vec3> vertices;
 			glm::mat4 transformations;
-			//glm::mat4 translateMatrix;
+			glm::mat4 translateMatrix;
 			bool hasColor;
 			
 		public:
